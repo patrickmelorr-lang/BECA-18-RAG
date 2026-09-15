@@ -1,0 +1,11 @@
+pregunta,tipo,paginas_esperadas,nota
+"¿Cuál es el monto de la subvención económica de la beca?",dominio,"9|13|31|38|92|93|111",montos de subvención
+"¿Qué modalidades de beca existen en la convocatoria 2026?",dominio,"3|13|14|59|60|89",modalidades
+"¿Bajo qué causales se puede perder la beca?",dominio,"111",pérdida de la beca
+"¿Cuáles son las obligaciones del becario?",dominio,"122|136",obligaciones
+"¿Me reembolsan gastos?",dominio,"39",reembolso - pregunta coloquial
+"¿En qué casos se suspende la beca?",dominio,"136",suspensión
+"¿Cuál es la receta del ceviche peruano?",fuera_de_dominio,"",debe abstenerse
+"¿Quién ganó el Mundial de 2022?",fuera_de_dominio,"",debe abstenerse
+"¿Cuánto cuesta un pasaje de Lima a Cusco?",fuera_de_dominio,"",debe abstenerse
+"¿Cuál es la capital de Francia?",fuera_de_dominio,"",debe abstenerse - el modelo SÍ lo sabe

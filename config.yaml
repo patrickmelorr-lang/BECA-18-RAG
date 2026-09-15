@@ -1,0 +1,75 @@
+# =============================================================================
+#  CONFIGURACION UNICA DEL PROYECTO
+#  Regla de oro: si un numero aparece en src/, esta mal. Va aqui.
+# =============================================================================
+
+proyecto: beca18-rag
+
+documento:
+  ruta: "data/beca18_reglamento.pdf"
+  nombre: "RDE N.o 033-2026-MINEDU/VMGI-PRONABEC"
+  descripcion: "Reglamento de Beca 18 y Becas Especiales - Convocatoria 2026"
+
+# --- Como se parte el documento --------------------------------------------
+# 400/60 era el valor del notebook original: demasiado chico para un reglamento
+# donde un articulo completo puede tener 1200 caracteres. Subimos a 900/150 y
+# lo DEMOSTRAMOS con eval/run_eval.py en vez de argumentarlo.
+chunking:
+  tamano: 900
+  solape: 150
+  separadores: ["\n\n", "\n", ". ", " "]
+
+# --- Embeddings: locales, sin API, sin costo -------------------------------
+# multilingual-e5-small usa prefijos asimetricos, igual que el task_type
+# de Gemini que tenia el notebook original. Se descarga una vez (~470 MB)
+# y queda en cache en ~/.cache/huggingface.
+embeddings:
+  modelo: "intfloat/multilingual-e5-small"
+  dimensiones: 384
+  prefijo_documento: "passage: "
+  prefijo_consulta: "query: "
+  normalizar: true
+  lote: 64
+
+indice:
+  ruta: "data/chroma"
+  coleccion: "beca18"
+  metrica: "cosine"
+
+# --- Generacion: DeepSeek via SDK de OpenAI --------------------------------
+generacion:
+  proveedor: "deepseek"
+  base_url: "https://api.deepseek.com"
+  modelo: "deepseek-flash"
+  temperature: 0.1
+  max_tokens: 500
+  k: 5
+  # Si el mejor fragmento no llega a esta similitud, ni siquiera llamamos
+  # al modelo: respondemos que no sabemos. Ahorra plata y evita inventos.
+  umbral_similitud: 0.78
+
+# --- Precios: SIEMPRE con fecha y fuente -----------------------------------
+precios:
+  verificado_el: "2026-09-14"
+  fuente: "https://api-docs.deepseek.com/quick_start/pricing"
+  unidad: "USD por 1,000,000 de tokens"
+  nota: >
+    DeepSeek aplica tarifa punta y fuera de punta desde el 16-08-2026;
+    la punta cuesta el doble. Estos valores son fuera de punta.
+    Confirmar en la fuente antes de presupuestar.
+  modelos:
+    deepseek-flash:
+      in: 0.15
+      in_cache: 0.003
+      out: 0.60
+    deepseek-v4-pro:
+      in: 0.66
+      in_cache: 0.013
+      out: 1.98
+
+logs:
+  costos: "logs/costos.csv"
+
+telegram:
+  intervalo_polling: 2
+  max_caracteres: 3800

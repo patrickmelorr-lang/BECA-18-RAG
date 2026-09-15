@@ -1,0 +1,17 @@
+# --- pipeline ---
+pypdf==6.11.0
+langchain-text-splitters==1.1.2
+chromadb==1.5.9
+sentence-transformers==5.1.2
+PyYAML==6.0.3
+
+# --- generacion (DeepSeek usa el SDK de OpenAI) ---
+openai==2.7.1
+python-dotenv==1.2.2
+
+# --- interfaces ---
+streamlit==1.52.2
+requests==2.32.5
+
+# --- analisis ---
+pandas==2.3.3
