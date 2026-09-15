@@ -1,2 +1,16 @@
-# Auto detect text files and perform LF normalization
+# Normalizacion por defecto
 * text=auto
+
+# Los .bat DEBEN ir con finales de linea de Windows o cmd puede fallar
+*.bat text eol=crlf
+*.cmd text eol=crlf
+
+# Los .sh DEBEN ir con finales de linea Unix
+*.sh text eol=lf
+
+# Binarios: que git NO los toque. Si normaliza el indice, lo corrompe.
+*.pdf   binary
+*.bin   binary
+*.sqlite3 binary
+*.parquet binary
+*.ipynb -text
